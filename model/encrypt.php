@@ -59,6 +59,7 @@
             /*END SINH KHOA*/
             /*MA HOA*/
             $c = "";
+            $abc = "";
 //            if(strlen($m) > 5){
 //                $arr = str_split($m);
 //                $dem = 1;
