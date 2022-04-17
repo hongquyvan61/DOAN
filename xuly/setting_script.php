@@ -8,6 +8,7 @@
     }  
     $old_password= mysqli_real_escape_string($con,$_POST['oldPassword']);
     $new_password= mysqli_real_escape_string($con,$_POST['newPassword']);
+    
     $model = new encrypt();
     $truoc = explode("@", $_SESSION['email']);
     $encryptemail = $model->apphin_mahoa($truoc[0])."@".$truoc[1];
@@ -17,12 +18,12 @@
     $password_from_database_result=mysqli_query($con,$password_from_database_query) or die(mysqli_error($con));
     $row=mysqli_fetch_array($password_from_database_result);
     //echo $row['password'];
-    $modelpwd = new encrypt();
-    $decryptoldpass = $modelpwd->apphin_giaima($row['pass'], $_SESSION['pvkeypass']);
+    
+    $decryptoldpass = $model->apphin_giaima($row['pass']);
     if($decryptoldpass == $old_password){
-        $modelmahoapass = new encrypt();
-        $encryptnewpass = $modelmahoapass->apphin_mahoa($new_password);
-        $_SESSION['pvkeypass'] = $modelmahoapass->getrsakey();
+        
+        $encryptnewpass = $model->apphin_mahoa($new_password);
+        
         $update_password_query="update user set pass='$encryptnewpass' where email='$encryptemail'";
         $update_password_result=mysqli_query($con,$update_password_query) or die(mysqli_error($con));
         echo "Your password has been updated.";

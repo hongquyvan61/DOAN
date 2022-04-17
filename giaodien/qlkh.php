@@ -54,7 +54,9 @@
 
                         <?php
                         include '../connectdb/connect.php';
+                        include '../model/encrypt.php';
                         $con = ketnoi();
+                        $model = new encrypt();
                         if(isset($_POST['keyword'])){
                             $search=$_POST['keyword'];
                             $sql1 = "SELECT * FROM  user WHERE email LIKE '$search'";
@@ -67,14 +69,20 @@
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $row['user_id']; ?></td>
 
-                                    <td><?php echo $row['email']; ?></td> 
+                                    <td>
+                                        <?php 
+                                            $tiento = explode("@", $row['email']);
+                                            $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
+                                            echo $decryptemail; 
+                                        ?>
+                                    </td> 
                                     <td><?php echo $row['sdt']; ?></td>  
                                     <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
-                                    <td><a onclick="return Del('<?php echo $row['email']; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
+                                    <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
                                 </tr>
                         <?php } 
                         } else {
-                            $sql = "SELECT * FROM user";
+                            $sql = "SELECT * FROM user where role = 'guest'";
                             $query = mysqli_query($con, $sql);
                             $i = 1;
                             while ($row = mysqli_fetch_assoc($query)) {
@@ -84,10 +92,16 @@
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $row['user_id']; ?></td>
 
-                                    <td><?php echo $row['email']; ?></td> 
+                                    <td>
+                                        <?php 
+                                            $tiento = explode("@", $row['email']);
+                                            $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
+                                            echo $decryptemail; 
+                                        ?>
+                                    </td>  
                                     <td><?php echo $row['sdt']; ?></td>  
                                     <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
-                                    <td><a onclick="return Del('<?php echo $row['email']; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
+                                    <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
                                 </tr>
                         <?php 
                             }

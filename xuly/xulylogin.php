@@ -15,11 +15,10 @@
                                             }
                                             if($check == 0){
                                                 $tiento = explode("@", $email);
-                                                $modelemail = new encrypt();
-                                                $mahoatiento = $modelemail->apphin_mahoa($tiento[0]);
+                                                $model = new encrypt();
+                                                $mahoatiento = $model->apphin_mahoa($tiento[0]);
                                                 $encryptemail = $mahoatiento."@".$tiento[1];
-                                                $modelpass = new encrypt();
-                                                $encryptpass = $modelpass->apphin_mahoa($password);
+                                                $encryptpass = $model->apphin_mahoa($password);
                                                 $user_authentication_query = "select role,user_id,email from user where email='$encryptemail' and pass='$encryptpass'";
                                                 $user_authentication_result = mysqli_query($con, $user_authentication_query) or die(mysqli_error($con));
                                                 $rows_fetched = mysqli_num_rows($user_authentication_result);
@@ -36,8 +35,6 @@
                                                     }
                                                     else{
                                                         $_SESSION['email']=$email;
-                                                        $_SESSION['pvkeyemail'] = $modelemail->getrsakey();
-                                                        $_SESSION['pvkeypass'] = $modelpass->getrsakey();
                                                         $_SESSION['id']=$row['user_id'];
                                                         $_SESSION['role'] = $row['role'];//user id
                                                         header('location:products.php');

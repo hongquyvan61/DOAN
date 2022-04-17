@@ -2,7 +2,7 @@
     class encrypt{
         private $alphabet = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
        
-        private $pvkey;
+        //private $pvkey;
         private function modinverse($key){
             for($i=0; $i<26; $i++){
 		$flag= ($i*$key)%26;
@@ -25,7 +25,9 @@
             $r=1;
             while ($x>0){
                     if ($x%2==1) 
-                    $r=($r*$a)%$n;
+                    {
+                        $r=($r*$a)%$n;
+                    }
                     $a=($a*$a)%$n;
                     $x/=2;
             }
@@ -53,17 +55,64 @@
                     break;
                 }
             }
-            $this->pvkey = $this->modinverse2($e, $phi_n);
+            //$this->pvkey = $this->modinverse2($e, $phi_n);
             /*END SINH KHOA*/
             /*MA HOA*/
-            $c = $this->modexp($m, $e, $n);
+            $c = "";
+//            if(strlen($m) > 5){
+//                $arr = str_split($m);
+//                $dem = 1;
+//                $tempnum = "";
+//                foreach ($arr as $num) {
+//                    if($dem <= 5){
+//                        $tempnum.=$num;
+//                        $dem++;
+//                    }
+//                    else{
+//                        $c.= $this->modexp($tempnum, $e, $n);
+//                        $dem = 1;
+//                        $tempnum = "";
+//                        $tempnum.=$num;
+//                    }
+//                }
+//                if($dem <= 5){
+//                    $c.=$this->modexp($tempnum, $e, $n);
+//                }
+//            }
+//            else{
+                $c = $this->modexp($m, $e, $n);
+            //}
+            
             /*END MA HOA*/
             return $c;
         }
-        public function getrsakey(){
-            return $this->pvkey;
-        }
+        
         private function rsa_giaima($so, $privatekey){
+//            $c = "";
+//            if(strlen($so) > 5){
+//                $arr = str_split($so);
+//                $dem = 1;
+//                $tempnum = "";
+//                foreach ($arr as $num) {
+//                    if($dem <= 5){
+//                        $tempnum.=$num;
+//                        $dem++;
+//                    }
+//                    else{
+//                        $c.=$this->modexp($tempnum, $privatekey, 709*719);
+//                        $dem = 1;
+//                        $tempnum = "";
+//                        $tempnum.=$num;
+//                    }
+//                }
+//                if($dem <= 5){
+//                    $c.=$this->modexp($tempnum, $privatekey, 709*719);
+//                }
+//            }
+//            else{
+//                $c = $this->modexp($so, $privatekey, 709*719);
+//            }
+//            return $c;
             return $this->modexp($so, $privatekey, 5039*673);
         }
         public function apphin_mahoa($banro){
@@ -115,7 +164,7 @@
             return $mahoatext;
         }
         
-        public function apphin_giaima($banma, $rsakey){
+        public function apphin_giaima($banma){
             $nghichdao = $this->modinverse(5);
             $plaintext="";
             $arr = str_split($banma);
@@ -129,7 +178,7 @@
                     }
                     else{
                         if($flagso == 1){
-                            $plaintext.= $this->rsa_giaima($chuoiso, $rsakey);
+                            $plaintext.= $this->rsa_giaima($chuoiso, 1015661);
                             $chuoiso = "";
                             $flagso = 0;
                         }
@@ -145,7 +194,7 @@
                     }
                     else{
                         if($flagso == 1){
-                            $plaintext.= $this->rsa_giaima($chuoiso, $rsakey);
+                            $plaintext.= $this->rsa_giaima($chuoiso, 1015661);
                             $chuoiso = "";
                             $flagso = 0;
                         }
@@ -156,7 +205,7 @@
                 }
             }
             if($flagso == 1){
-                $plaintext.=$this->rsa_giaima($chuoiso, $rsakey);
+                $plaintext.=$this->rsa_giaima($chuoiso, 1015661);
             }
             return $plaintext;
         }

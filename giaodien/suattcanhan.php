@@ -33,7 +33,7 @@
                 $result = $model->getInfo(intval($_SESSION['id']));
                 $row = mysqli_fetch_assoc($result);
                 $truoc = explode("@", $row['email']);
-                $giaima = $decrypt->apphin_giaima($truoc[0], $_SESSION['pvkeyemail']);
+                $giaima = $decrypt->apphin_giaima($truoc[0]);
                 $decryptemail = $giaima."@".$truoc[1];
             ?>
             <br>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="contact">Your contact:</label>
-                                <input id="contact" type="tel" class="form-control" name="usercontact" required="true" value="<?php echo $row['sdt'];?>">
+                                <input id="contact" type="num" class="form-control" name="usercontact" required="true" value="<?php echo $row['sdt'];?>">
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Change">

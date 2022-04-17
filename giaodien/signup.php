@@ -44,7 +44,7 @@
                                 <input type="password" class="form-control" name="password" placeholder="Password(min. 6 characters)" required="true" pattern=".{6,}">
                             </div>
                             <div class="form-group"> 
-                                <input type="tel" class="form-control" name="contact" placeholder="Contact" required="true">
+                                <input type="num" class="form-control" name="contact" placeholder="Contact" required="true">
                             </div>
                             <!--<div class="form-group">
                                 <input type="text" class="form-control" name="city" placeholder="City" required="true">

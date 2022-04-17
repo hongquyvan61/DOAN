@@ -43,12 +43,15 @@
         <?php
         $tiento = explode("@", $email);
         $mahoatiento = $encryptmodel->apphin_mahoa($tiento[0]);
-//        var_dump($mahoatiento);
+        //var_dump($mahoatiento);
 //        var_dump($encryptmodel->apphin_giaima($mahoatiento));
         $encryptemail = $mahoatiento."@".$tiento[1];
         $encryptpass = $encryptmodel->apphin_mahoa($password);
 //        var_dump($encryptpass);
 //        var_dump($encryptmodel->apphin_giaima($encryptpass));
+        //$encryptsdt = $encryptmodel->apphin_mahoa($contact);
+        //var_dump($encryptsdt);
+        //var_dump($encryptmodel->apphin_giaima($encryptsdt));
         $user_registration_query="insert into user(pass,email,sdt,role) values ('$encryptpass','$encryptemail','$contact','guest')";
 //        //die($user_registration_query);
         $user_registration_result=mysqli_query($con,$user_registration_query) or die(mysqli_error($con));

@@ -43,7 +43,9 @@
 
                         <?php
                         include '../connectdb/connect.php';
+                        include '../model/encrypt.php';
                         $con = ketnoi();
+                        $model = new encrypt();
                         $sql = "select u.user_id,u.email,u.sdt,c.status from user as u, cart as c where u.user_id=c.user_id and c.status='Paid' group by c.user_id";
                         $query = mysqli_query($con, $sql);
 
@@ -55,7 +57,13 @@
                                 
                                 <td><?php echo $i++; ?></td>
                                 <td><?php echo $row['user_id']; ?></td>
-                                <td><?php echo $row['email']; ?></td>
+                                <td>
+                                        <?php 
+                                            $tiento = explode("@", $row['email']);
+                                            $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
+                                            echo $decryptemail; 
+                                        ?>
+                                </td>
                                 <td><?php echo $row['sdt']; ?></td>
                                 <td><a href="../giaodien/chitiet.php?user_id=<?php echo $row['user_id']; ?>"><button class="x1"> Chi tiết</button></a></td>
                                 <td><a onclick="return giao()" href="../giaodien/giaohang.php?userid=<?php echo $row['user_id']; ?>"><input type="button" name="giao" id="giao" class="x1" value="Giao hàng"></button></a></td>
