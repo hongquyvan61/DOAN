@@ -95,8 +95,9 @@
             var_dump($kqcuoicung);
         }*/
         /*MA HOA SO*/
-        var_dump($encryptmodel->apphin_mahoa("12000000"));
-        var_dump($encryptmodel->apphin_giaima($encryptmodel->apphin_mahoa("12000000")));
+        var_dump($encryptmodel->apphin_mahoa("1200000"));
+        var_dump($encryptmodel->apphin_giaima($encryptmodel->apphin_mahoa("1200000")));
+        //csacsacs
         /*GIAI MA*/
         /*$arraykhac = str_split($kqcuoicung);
         $chuoi = "";
