@@ -269,6 +269,7 @@
             if($flagso == 1){
                 $plaintext.=$this->rsa_giaima($chuoiso, 1015661);
             }
+            $abc = 1;
             return $plaintext;
         }
     }
