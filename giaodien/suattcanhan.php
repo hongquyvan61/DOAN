@@ -35,6 +35,7 @@
                 $truoc = explode("@", $row['email']);
                 $giaima = $decrypt->apphin_giaima($truoc[0]);
                 $decryptemail = $giaima."@".$truoc[1];
+                $decryptsdt = $decrypt->apphin_giaima($row['sdt']);
             ?>
             <br>
             <div class="container">
@@ -48,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="contact">Your contact:</label>
-                                <input id="contact" type="num" class="form-control" name="usercontact" required="true" value="<?php echo $row['sdt'];?>">
+                                <input id="contact" type="num" class="form-control" name="usercontact" required="true" value="<?php echo $decryptsdt;?>">
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Change">

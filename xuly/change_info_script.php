@@ -16,14 +16,14 @@
         <?php
     }
     else{
-            $userid=$_SESSION['id'];
+        $userid=$_SESSION['id'];
         $truoc = explode("@", $useremail);
         $mahoaemail = new encrypt();
         $encrypt = $mahoaemail->apphin_mahoa($truoc[0])."@".$truoc[1];
+        $encryptsdt = $mahoaemail->apphin_mahoa($usercontact);
         $_SESSION['email'] = $useremail;
-        $_SESSION['pvkeyemail'] = $mahoaemail->getrsakey();
         //echo $email;
-        $query="update user set email='$encrypt', sdt='$usercontact' where user_id=$userid";
+        $query="update user set email='$encrypt', sdt='$encryptsdt' where user_id=$userid";
         $result=mysqli_query($con,$query) or die(mysqli_error($con));
         if(mysqli_affected_rows($con) > 0){
             ?>

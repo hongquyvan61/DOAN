@@ -64,7 +64,8 @@
                                             echo $decryptemail; 
                                         ?>
                                 </td>
-                                <td><?php echo $row['sdt']; ?></td>
+                                <td><?php $decryptsdt = $model->apphin_giaima($row['sdt']);
+                                            echo $decryptsdt; ?></td>
                                 <td><a href="../giaodien/chitiet.php?user_id=<?php echo $row['user_id']; ?>"><button class="x1"> Chi tiết</button></a></td>
                                 <td><a onclick="return giao()" href="../giaodien/giaohang.php?userid=<?php echo $row['user_id']; ?>"><input type="button" name="giao" id="giao" class="x1" value="Giao hàng"></button></a></td>
 
