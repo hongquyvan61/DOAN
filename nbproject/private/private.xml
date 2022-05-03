@@ -11,6 +11,16 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+
+        <group>
+            <file>file:/C:/xampp/htdocs/DOAN/giaodien/qlkh.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/giaodien/cart.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/connectdb/connect.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/xuly/user_registration_script.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/xuly/xulylogin.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/giaodien/suattcanhan.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/model/encrypt.php</file>
+            <file>file:/C:/xampp/htdocs/DOAN/giaodien/ttgh.php</file>
+        </group>
     </open-files>
 </project-private>
