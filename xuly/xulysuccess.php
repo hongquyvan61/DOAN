@@ -4,6 +4,7 @@
     require '../model/cart_model1.php';
     require '../model/bill_model.php';
     require '../model/detailbill_model.php';
+    require '../model/encrypt.php';
     if(!isset($_SESSION['email'])){
         header('location:index.php');
     }else{
@@ -15,7 +16,14 @@
         $rcname = mysqli_real_escape_string($con,$_POST['rcname']);
         $rccontact = mysqli_real_escape_string($con,$_POST['rccontact']);
         $rcadd = mysqli_real_escape_string($con,$_POST['rcadd']);
-        $confirm_query="update cart set status='Paid',payment_time='$payment_time',ten_nguoinhan=N'$rcname',sdt_nguoinhan='$rccontact',diachi_giaohang=N'$rcadd' "
+        
+             $encryptmodel = new encrypt();
+    $tam = $encryptmodel->vn_to_str($rcname);
+     $tam2 = $encryptmodel->vn_to_str($rcadd);
+    $mahoa_name = $encryptmodel->apphin_mahoa($tam);
+    $mahoa_sdt=$encryptmodel->apphin_mahoa($rccontact);
+    $mahoa_diachi=$encryptmodel->diachi_mahoa($tam2);
+        $confirm_query="update cart set status='Paid',payment_time='$payment_time',ten_nguoinhan=N'$mahoa_name',sdt_nguoinhan='$mahoa_sdt',diachi_giaohang=N'$mahoa_diachi' "
                 . "where user_id=? and status='Added to cart'";
         $stmt = mysqli_prepare($con, $confirm_query);
         //$confirm_query_result=mysqli_query($con,$confirm_query) or die(mysqli_error($con));

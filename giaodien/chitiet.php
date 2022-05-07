@@ -22,7 +22,9 @@
     </head>
 
     <body style="background-color: #F0F0F0;" data-spy="scroll" data-target="#myScrollspy" data-offset="1">
-        <?php require '../giaodien/admin_menu.php';?>
+        <?php require '../giaodien/admin_menu.php';
+          require '../model/encrypt.php';?>
+        
         <div class="main">
 
             <div class="aa">
@@ -46,6 +48,7 @@
 
                         <?php
                         include '../connectdb/connect.php';
+                          $encryptmodel = new encrypt();
                         $con = ketnoi();
                          $user_id=$_GET['user_id'];
                         $sql = "SELECT shoes.shoe_id,cart.size,cart.quantity,cart.payment_time,cart.ten_nguoinhan,cart.sdt_nguoinhan,cart.diachi_giaohang,shoes.name,shoes.price
@@ -55,8 +58,12 @@
 
                         $i = 1;
                         while ($row = mysqli_fetch_assoc($query)) {
+                              $giaima_name = $encryptmodel->apphin_giaima($row['ten_nguoinhan']);
+                                $giaima_sdt=$encryptmodel->apphin_giaima($row['sdt_nguoinhan']);
+                                 $giaima_diachi=$encryptmodel->diachi_giaima($row['diachi_giaohang']);
                             ?>
                             <tr id="a1">     
+                               
 
                                 <td><?php echo $i++; ?></td>
                                 <td><?php echo $row['shoe_id']; ?></td>
@@ -65,9 +72,9 @@
                                 <td><?php echo $row['size']; ?></td>
                                  <td><?php echo $row['quantity']; ?></td>
                                  <td><?php echo $row['payment_time']; ?></td>
-                                 <td><?php echo $row['ten_nguoinhan']; ?></td>
-                                 <td><?php echo $row['sdt_nguoinhan']; ?></td>
-                                 <td><?php echo $row['diachi_giaohang']; ?></td>
+                                 <td><?php echo $giaima_name; ?></td>
+                                 <td><?php echo $giaima_sdt; ?></td>
+                                 <td><?php echo $giaima_diachi; ?></td>
                             </tr>
                         <?php } ?>
 
