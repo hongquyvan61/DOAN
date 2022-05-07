@@ -41,6 +41,7 @@
     }else{?>
         
         <?php
+        $def = 1;
         $tiento = explode("@", $email);
         $mahoatiento = $encryptmodel->apphin_mahoa($tiento[0]);
         $encryptemail = $mahoatiento."@".$tiento[1];
