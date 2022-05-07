@@ -43,17 +43,17 @@
         <?php
         $tiento = explode("@", $email);
         $mahoatiento = $encryptmodel->apphin_mahoa($tiento[0]);
-        //var_dump($mahoatiento);
-//        var_dump($encryptmodel->apphin_giaima($mahoatiento));
         $encryptemail = $mahoatiento."@".$tiento[1];
         $encryptpass = $encryptmodel->apphin_mahoa($password);
-//        var_dump($encryptpass);
-//        var_dump($encryptmodel->apphin_giaima($encryptpass));
+
+//        $tam = $encryptmodel->mahoathongke(5432000000);
+//        var_dump($tam);
+//        var_dump($encryptmodel->giaimathongke($tam));
         $encryptsdt = $encryptmodel->apphin_mahoa($contact);
-        //var_dump($encryptsdt);
-        //var_dump($encryptmodel->apphin_giaima($encryptsdt));
-        $user_registration_query="insert into user(pass,email,sdt,role) values ('$encryptpass','$encryptemail','$contact','guest')";
+        $user_registration_query="insert into user(pass,email,sdt,role) values ('$encryptpass','$encryptemail','$encryptsdt','guest')";
 //        //die($user_registration_query);
+        $abc = 1;
+
         $user_registration_result=mysqli_query($con,$user_registration_query) or die(mysqli_error($con));
         
         
@@ -69,85 +69,7 @@
         <meta http-equiv="refresh" content="3;url=../giaodien/login.php" />
         
         <?php
-        
-        $tiento = explode("@", $email);
-        $mahoatiento = $encryptmodel->apphin_mahoa($tiento[0]);
-        //var_dump($mahoatiento);
-//        var_dump($encryptmodel->apphin_giaima($mahoatiento));
-        $encryptemail = $mahoatiento."@".$tiento[1];
-        $encryptpass = $encryptmodel->apphin_mahoa($password);
-        /*MA HOA CHU*/
-//        $tam = $encryptmodel->vn_to_str("VÕ VĂN KIỆT");
-//        var_dump($encryptmodel->apphin_mahoa($tam));
-//        var_dump($encryptmodel->apphin_giaima($encryptmodel->apphin_mahoa($tam)));
-        //var_dump($encryptmodel->apphin_mahoa($tam));
-        //var_dump($encryptmodel->apphin_giaima($encryptmodel->apphin_mahoa($tam)));
-//              $tam = $encryptmodel->vn_to_str("Đường số 1/3F, Phường Tăng Nhơn Phú B");
-//        var_dump($encryptmodel->diachi_mahoa($tam));
-//        var_dump($encryptmodel->diachi_giaima($encryptmodel->diachi_mahoa($tam)));
 
-        /*MA HOA CHU*/
-        /*MA HOA SO*/
-        /*TACH NHO CHUOI CAN MA HOA*/
-        /*$arr = str_split($contact);
-        $dem = 0;
-        $temp = "";
-        $final = "";
-        foreach($arr as $pt){
-            if($dem < 5){
-                $temp.=$pt;
-                $dem++;
-            }
-            else{
-                $final.=$temp."#";
-                $temp = "";     
-                $temp.=$pt;
-                $dem = 1;
-            }
-        }
-        /*TACH NHO CHUOI CAN MA HOA*/
-        //  var_dump($encryptmodel->apphin_mahoa("09056"));
-       
-        /*if($dem <= 5){
-            $final.=$temp."#";
-            var_dump($final);
-            $array = str_split($final);
-            $ketqua = "";
-            $kqcuoicung = "";
-            foreach($array as $pt){
-                $ordchar = ord($pt);
-                if($ordchar == 35){
-                    $kqcuoi = $encryptmodel->apphin_mahoa($ketqua);
-                    $kqcuoicung.=$kqcuoi."#";
-                    $ketqua = "";
-                }
-                else{
-                    $ketqua.=$pt;
-                }
-            }
-            var_dump($kqcuoicung);
-        }*/
-        /*MA HOA SO*/
-   //     var_dump($encryptmodel->apphin_mahoa("1200000"));
-    //    var_dump($encryptmodel->apphin_giaima($encryptmodel->apphin_mahoa("1200000")));
-        //csacsacs
-        /*GIAI MA*/
-        /*$arraykhac = str_split($kqcuoicung);
-        $chuoi = "";
-        $chuoi2 = "";
-        foreach($arraykhac as $pt){
-                $ordchar = ord($pt);
-                if($ordchar == 35){
-                    $str = $encryptmodel->apphin_giaima($chuoi);
-                    $chuoi2.=$str;
-                    $chuoi = "";
-                }
-                else{
-                    $chuoi.=$pt;
-                }
-        }
-         var_dump($chuoi2);*/
-      
     }
     
 ?>

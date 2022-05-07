@@ -59,28 +59,68 @@
                         $model = new encrypt();
                         if(isset($_POST['keyword'])){
                             $search=$_POST['keyword'];
-                            $sql1 = "SELECT * FROM  user WHERE email LIKE '$search'";
-                            $query = mysqli_query($con, $sql1);
-                            $i = 1;
-                            while ($row = mysqli_fetch_assoc($query)) {
-                                ?>
-                                <tr id="a1">     
+                            $regex_email = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[_a-z0-9-]+)*(\.[a-z]{2,3})$/";
+                            if (!preg_match($regex_email, $search)) {
+                                echo "<p style='display:block;color:red;font-size:15px;'>Email không hợp lệ, hãy nhập lại</p><br>";
+                                $sql = "SELECT * FROM user where role = 'guest'";
+                                $query = mysqli_query($con, $sql);
+                                $i = 1;
+                                while ($row = mysqli_fetch_assoc($query)) {
+                                    ?>
+                                    <tr id="a1">     
 
-                                    <td><?php echo $i++; ?></td>
-                                    <td><?php echo $row['user_id']; ?></td>
+                                        <td><?php echo $i++; ?></td>
+                                        <td><?php echo $row['user_id']; ?></td>
 
-                                    <td>
-                                        <?php 
-                                            $tiento = explode("@", $row['email']);
-                                            $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
-                                            echo $decryptemail; 
-                                        ?>
-                                    </td> 
-                                    <td><?php echo $row['sdt']; ?></td>  
-                                    <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
-                                    <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
-                                </tr>
-                        <?php } 
+                                        <td>
+                                            <?php 
+                                                $tiento = explode("@", $row['email']);
+                                                $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
+                                                echo $decryptemail; 
+                                            ?>
+                                        </td>  
+                                        <td><?php 
+                                                $decryptsdt = $model->apphin_giaima($row['sdt']);
+                                                echo $decryptsdt; 
+                                                ?>
+                                        </td>  
+                                        <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
+                                        <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
+                                    </tr>
+                                <?php 
+                                }
+                            }
+                            else{
+                                $tientosearch = explode("@", $search);
+                                $mahoasearch = $model->apphin_mahoa($tientosearch[0]);
+                                $mahoasearchemail = $mahoasearch."@".$tientosearch[1];
+                                $sql1 = "SELECT * FROM  user WHERE email LIKE '$mahoasearchemail'";
+                                $query = mysqli_query($con, $sql1);
+                                $i = 1;
+                                while ($row = mysqli_fetch_assoc($query)) {
+                                    ?>
+                                    <tr id="a1">     
+
+                                        <td><?php echo $i++; ?></td>
+                                        <td><?php echo $row['user_id']; ?></td>
+
+                                        <td>
+                                            <?php 
+                                                $tiento = explode("@", $row['email']);
+                                                $decryptemail = $model->apphin_giaima($tiento[0])."@".$tiento[1];
+                                                echo $decryptemail; 
+                                            ?>
+                                        </td> 
+                                        <td><?php
+                                                $decryptsdt = $model->apphin_giaima($row['sdt']);
+                                                echo $decryptsdt;
+                                        ?></td>  
+                                        <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
+                                        <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
+                                    </tr>
+                            <?php }
+                        
+                            }
                         } else {
                             $sql = "SELECT * FROM user where role = 'guest'";
                             $query = mysqli_query($con, $sql);
@@ -99,7 +139,11 @@
                                             echo $decryptemail; 
                                         ?>
                                     </td>  
-                                    <td><?php echo $row['sdt']; ?></td>  
+                                    <td><?php 
+                                            $decryptsdt = $model->apphin_giaima($row['sdt']);
+                                            echo $decryptsdt; 
+                                            ?>
+                                    </td>  
                                     <!--<td><a href="../giaodien/sua_user.php?user_id=<?php //echo $row['user_id']; ?>">Sửa</a></td>-->
                                     <td><a onclick="return Del('<?php echo $decryptemail; ?>')" href="../giaodien/xoa_user.php?user_id=<?php echo $row['user_id']; ?>">Xóa</a></td>
                                 </tr>

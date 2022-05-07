@@ -84,6 +84,52 @@
         private function BSCNN($a, $b) {
             return ($a * $b) / $this->USCLN($a, $b);
         }
+        public function mahoathongke($so){
+            $arr = str_split($so);
+            $encryptnum = "";
+            $sokhackhong = "";
+            $flag = 0;
+            foreach($arr as $pt){
+                if($pt*1 != 0){
+                    $sokhackhong.=$pt;
+                    $flag = 0;
+                }
+                else{
+                    if(!empty($sokhackhong)){
+                        $encryptnum.= $this->rsa_mahoa($sokhackhong);
+                        $sokhackhong = "";
+                    }
+                    $encryptnum.="X";
+                    $flag = 1;
+                }
+            }
+            if($flag == 0){
+                $encryptnum.= $this->rsa_mahoa($sokhackhong);
+            }
+            return $encryptnum;
+        }
+        
+        public function giaimathongke($so){
+            $arr = str_split($so);
+            $decryptnum = "";
+            $sokhackhong = "";
+            $flag = 0;
+            foreach($arr as $pt){
+                $ordchar = ord($pt);
+                if($ordchar != 35 && $ordchar != 88){
+                    $sokhackhong.=$pt;
+                }
+                elseif ($ordchar == 35) {
+                    $sokhackhong.=$pt;
+                    $decryptnum.= $this->rsa_giaima($sokhackhong, 1015661);
+                    $sokhackhong = "";
+                }
+                elseif($ordchar == 88){
+                    $decryptnum.="0";
+                }
+            }
+            return $decryptnum;
+        }
         private function rsa_mahoa($m){
             /*SINH KHOA*/
 //            $p = 661;
