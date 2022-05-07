@@ -207,6 +207,7 @@
                     }
                 }
             }
+            $abc = 1;
             if($flagso == 1){
                 $mahoatext.=$this->rsa_mahoa($chuoiso);
             }
