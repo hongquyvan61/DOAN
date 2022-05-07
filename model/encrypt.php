@@ -253,6 +253,7 @@
                     }
                 }
             }
+            $abc = 1;
             if($flagso == 1){
                 $mahoatext.=$this->rsa_mahoa($chuoiso);
             }
@@ -317,6 +318,155 @@
             }
             return $plaintext;
         }
+         public function diachi_mahoa($banro){
+            $mahoatext = "";
+            $arr = str_split($banro);
+           foreach ($arr as $char) {   
+                if(is_numeric($char)){
+                     $mahoatext.=$char+3;
+               } 
+               else{
+               $ordchar=ord($char);
+             if(ctype_upper($char)){                                                 
+                 if(($ordchar>31 && $ordchar< 48) || ($ordchar>57 && $ordchar< 65) || ($ordchar>90 && $ordchar< 97)|| ($ordchar>122 && $ordchar< 127))
+                        {
+                             $mahoatext.=$char;
+                        }
+                   else{
+                                  $beforemod = 5*($ordchar-65) + 6;
+                        $aftermod = $beforemod % 26;
+                        $aftermodint = (int)$aftermod;
+                        $mahoatext.= strtoupper($this->alphabet[$aftermodint]);
+                          
+                   }
+                   }
+                
+                else
+                {           
+                        if(($ordchar>31 && $ordchar< 48) || ($ordchar>57 && $ordchar< 65) || ($ordchar>90 && $ordchar< 97)|| ($ordchar>122 && $ordchar< 127))
+                        {
+                             $mahoatext.=$char;
+                        }
+                   else{
+                                $beforemod = 5*($ordchar-97) + 6;
+                                $aftermod = $beforemod % 26;
+                                $aftermodint = (int)$aftermod;
+                                $mahoatext.= $this->alphabet[$aftermodint];
+                          
+                   }
+//                        switch ($ordchar) {
+//                            case 32:
+//                                $mahoatext.=" ";
+//                                break;
+//                             case 45:
+//                                $mahoatext.="-";
+//                                break;
+//                             case 47:
+//                                $mahoatext.="/";
+//                                break;
+//                             case 44:
+//                                $mahoatext.=",";
+//                                break;
+//
+//                            default :
+//                                $beforemod = 5*($ordchar-97) + 6;
+//                                $aftermod = $beforemod % 26;
+//                                $aftermodint = (int)$aftermod;
+//                                $mahoatext.= $this->alphabet[$aftermodint];
+//                                break;
+//                            }
+                    }
+           
+               }
+                }
+        
+            return $mahoatext;
+        }
+        public function diachi_giaima($banma){
+             $nghichdao = $this->modinverse(5);
+            $plaintext="";
+            $arr = str_split($banma);
+            foreach ($arr as $char) {
+                                   
+                       if(is_numeric($char)){
+                           if($char-3<0)
+                                $plaintext.=$char-3+9;
+                           else
+                                  $plaintext.=$char-3;
+                             }     
+                        else{
+                             $ordchar=ord($char);
+                            if(ctype_upper($char)){ 
+                                
+         if(($ordchar>31 && $ordchar< 48) || ($ordchar>57 && $ordchar< 65) || ($ordchar>90 && $ordchar< 97)|| ($ordchar>122 && $ordchar< 127))
+                        {
+                             $plaintext.=$char;
+                        }
+                   else{
+                                $c = ((((( ord($char)-65 ) - 6) + 26 ) % 26 )*$nghichdao) % 26;
+                            $convint = (int)$c;
+                            $plaintext.= strtoupper($this->alphabet[$convint]);
+                          
+                   }
+//                        switch (ord($char)) {
+//                        case 32:
+//                            $plaintext.=" ";
+//                            break;
+//                         case 45:
+//                            $plaintext.="-";
+//                            break;
+//                         case 47:
+//                            $plaintext.="/";
+//                            break;
+//                         case 44:
+//                            $plaintext.=",";
+//                            break;
+//
+//                        default:
+//                           $c = ((((( ord($char)-65 ) - 6) + 26 ) % 26 )*$nghichdao) % 26;
+//                            $convint = (int)$c;
+//                            $plaintext.= strtoupper($this->alphabet[$convint]);
+//                            break;
+//                        }                  
+                }
+                else{
+          if(($ordchar>31 && $ordchar< 48) || ($ordchar>57 && $ordchar< 65) || ($ordchar>90 && $ordchar< 97)|| ($ordchar>122 && $ordchar< 127))
+                        {
+                             $plaintext.=$char;
+                        }
+                   else{
+                           $d = ((((( ord($char)-97 ) - 6) + 26 ) % 26 )*$nghichdao) % 26;
+                            $convint = (int)$d;
+                             $plaintext.= $this->alphabet[$convint];
+                          
+                   }
+//                     switch (ord($char)) {
+//                        case 32:
+//                            $plaintext.=" ";
+//                            break;
+//                         case 45:
+//                            $plaintext.="-";
+//                            break;
+//                         case 47:
+//                            $plaintext.="/";
+//                            break;
+//                         case 44:
+//                            $plaintext.=",";
+//                            break;
+//
+//                        default:
+//                            $d = ((((( ord($char)-97 ) - 6) + 26 ) % 26 )*$nghichdao) % 26;
+//                            $convint = (int)$d;
+//                             $plaintext.= $this->alphabet[$convint];
+//                            break;
+//                        }           
+                }
+            }
+            }
+
+            return $plaintext;
+        }
+    
     }
 ?>
 
