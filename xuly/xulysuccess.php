@@ -30,7 +30,10 @@
         mysqli_stmt_bind_param($stmt,"i", $user_id);
         mysqli_stmt_execute($stmt);
         //$date = date("Y-m-d");
-        $total = $_SESSION['total'];
+        $total_tam = $_SESSION['total'];
+        $total=$encryptmodel->mahoathongke($total_tam);
+       //  $tam = $encryptmodel->mahoathongke(1800);
+      
         $bill = new bill_model();
         $bill->insertbill($user_id, $payment_time, $total);
         $detailbill = new detailbill_model();

@@ -22,7 +22,8 @@
     </head>
 
     <body style="background-color: #F0F0F0;" data-spy="scroll" data-target="#myScrollspy" data-offset="1">
-        <?php require '../giaodien/admin_menu.php';?>
+        <?php require '../giaodien/admin_menu.php';
+        require '../model/encrypt.php';?>?>
         <div class="main">
 
             <div class="aa">
@@ -40,6 +41,7 @@
 
                         <?php
                         include '../connectdb/connect.php';
+                        $encryptmodel = new encrypt();
                         $con = ketnoi();
                         //$sql = "SELECT shoes.shoe_id,SUM(cart.quantity),shoes.name,shoes.price FROM cart,shoes WHERE cart.shoe_id=shoes.shoe_id AND (cart.status='Paid' or cart.status='Shipped') GROUP BY shoe_id order by sum(cart.quantity) desc";
                         $sql = "select * from bill";
@@ -47,6 +49,7 @@
 
                         $i = 1;
                         while ($row = mysqli_fetch_assoc($query)) {
+                              $giaima_total = $encryptmodel->giaimathongke($row['total']);
                             ?>
                             <tr id="a1">     
 
@@ -56,7 +59,7 @@
                                 <td><?php //echo $row['SUM(cart.quantity']; 
                                         echo $row['date'];?>
                                 </td>
-                                <td><?php echo $row['total']; ?></td>
+                                 <td><?php echo $giaima_total; ?></td>
                              
                             </tr>
                         <?php } ?>
