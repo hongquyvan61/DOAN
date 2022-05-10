@@ -4,13 +4,19 @@
         public function __construct() {
             $this->con = ketnoi();
         }
-        public function insertbill($user,$date,$total){
-            $bill_query = "insert into bill(user,date,total)"
-                . "values(?,?,?)";
-            $stmt = mysqli_prepare($this->con,$bill_query);
-            mysqli_stmt_bind_param($stmt,"isi", $user,$date,$total);
-            mysqli_stmt_execute($stmt);
-        }
+//        public function insertbill($user,$date,$total){
+//            $bill_query = "insert into bill(user,date,total)"
+//                . "values(?,?,?)";
+//            $stmt = mysqli_prepare($this->con,$bill_query);
+//            mysqli_stmt_bind_param($stmt,"isi", $user,$date,$total);
+//            mysqli_stmt_execute($stmt);
+//        }
+          function insertbill($user,$date,$total){
+         $sql="INSERT INTO bill(user,date,total)
+                   VALUES($user,'$date','$total')";
+            mysqli_query($this->con,$sql);
+            
+    }
         public function gettotalprice(){
             $query ="select sum(total) as totalprice from bill";
             $result = mysqli_query($this->con, $query);

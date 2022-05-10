@@ -41,10 +41,12 @@
     }else{?>
         
         <?php
+        $def = 1;
         $tiento = explode("@", $email);
         $mahoatiento = $encryptmodel->apphin_mahoa($tiento[0]);
         $encryptemail = $mahoatiento."@".$tiento[1];
         $encryptpass = $encryptmodel->apphin_mahoa($password);
+
 //        $tam = $encryptmodel->mahoathongke(5432000000);
 //        var_dump($tam);
 //        var_dump($encryptmodel->giaimathongke($tam));
@@ -52,6 +54,7 @@
         $user_registration_query="insert into user(pass,email,sdt,role) values ('$encryptpass','$encryptemail','$encryptsdt','guest')";
 //        //die($user_registration_query);
         $abc = 1;
+
         $user_registration_result=mysqli_query($con,$user_registration_query) or die(mysqli_error($con));
         
         
@@ -67,6 +70,7 @@
         <meta http-equiv="refresh" content="3;url=../giaodien/login.php" />
         
         <?php
+
     }
     
 ?>
