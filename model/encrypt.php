@@ -224,10 +224,15 @@
                             $flagso = 0;
                         }
                         $ordchar = ord($char);
-                        $beforemod = 5*($ordchar-65) + 6;
-                        $aftermod = $beforemod % 26;
-                        $aftermodint = (int)$aftermod;
-                        $mahoatext.= strtoupper($this->alphabet[$aftermodint]);
+                        if($ordchar != 32){
+                            $beforemod = 5*($ordchar-65) + 6;
+                            $aftermod = $beforemod % 26;
+                            $aftermodint = (int)$aftermod;
+                            $mahoatext.= strtoupper($this->alphabet[$aftermodint]);
+                        }
+                        else{
+                            $mahoatext.=" ";
+                        }
                     }
                 }
                 else{
@@ -253,7 +258,6 @@
                     }
                 }
             }
-            $abc = 1;
             if($flagso == 1){
                 $mahoatext.=$this->rsa_mahoa($chuoiso);
             }
