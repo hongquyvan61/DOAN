@@ -18,7 +18,7 @@
             
     }
         public function gettotalprice(){
-            $query ="select sum(total) as totalprice from bill";
+            $query ="select total from bill";
             $result = mysqli_query($this->con, $query);
             return $result;
         }
