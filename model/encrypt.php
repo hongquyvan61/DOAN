@@ -132,8 +132,6 @@
         }
         private function rsa_mahoa($m){
             /*SINH KHOA*/
-//            $p = 661;
-//            $q = 673;
             $p = 5039;
             $q = 673;
             $n = $p*$q;

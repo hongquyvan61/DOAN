@@ -1,5 +1,6 @@
 <?php
 require '../connectdb/connect.php';
+require '../model/encrypt.php';
 session_start();
 $con = ketnoi();
 
@@ -51,6 +52,7 @@ require '../giaodien/header.php';
 
 <?php
 $con = ketnoi();
+$encrypt = new encrypt();
 $billid = $_GET['billid'];
 $sql = "SELECT s.name,s.brand,d.quantity,d.price
 FROM detailbill as d join shoes as s
@@ -66,7 +68,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['brand']; ?></td>
                                     <td><?php echo $row['quantity']; ?></td>
-                                    <td><?php echo $row['price']; ?></td>
+                                    <td><?php echo $encrypt->giaimathongke($row['price']); ?></td>
                                     
 
                                 </tr>
