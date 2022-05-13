@@ -1,5 +1,6 @@
 <?php
 require '../connectdb/connect.php';
+require '../model/encrypt.php';
 session_start();
 $con = ketnoi();
 
@@ -50,6 +51,7 @@ require '../giaodien/header.php';
 
 <?php
 $con = ketnoi();
+$encrypt = new encrypt();
 $user_id = $_SESSION['id'];
 $sql = "select * from bill where user=$user_id";
 $query = mysqli_query($con, $sql);
@@ -61,7 +63,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                                     <td><?php echo $i++; ?></td>
                                     <td><?php echo $row['bill_id']; ?></td>
                                     <td><?php echo $row['date']; ?></td>
-                                    <td><?php echo $row['total']; ?></td>
+                                    <td><?php echo $encrypt->giaimathongke($row['total']); ?></td>
                                     <td><a href="../giaodien/chitiethd.php?billid=<?php echo $row['bill_id']; ?>">Detail</a></td>
 
                                 </tr>
