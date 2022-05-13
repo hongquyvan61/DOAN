@@ -325,8 +325,13 @@
             $arr = str_split($banro);
            foreach ($arr as $char) {   
                 if(is_numeric($char)){
-                     $mahoatext.=$char+3;
-               } 
+                     if($char+3>9)
+                                $mahoatext.=$char+3-10;
+                           else
+                                    $mahoatext.=$char+3;
+                               
+                   
+                }
                else{
                $ordchar=ord($char);
              if(ctype_upper($char)){                                                 
@@ -392,7 +397,7 @@
                                    
                        if(is_numeric($char)){
                            if($char-3<0)
-                                $plaintext.=$char-3+9;
+                                $plaintext.=$char-3+10;
                            else
                                   $plaintext.=$char-3;
                              }     
